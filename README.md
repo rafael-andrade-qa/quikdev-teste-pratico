@@ -4,15 +4,15 @@ This repository contains an automation project designed to run tests for the tec
 
 ## Test Questions
 
-The technical test questions can be found in the file: [QA Practical Test](doc\teste-pratico-qa-pleno.pdf).
+The technical test questions can be found in the file: [QA Practical Test](doc/teste-pratico-qa-pleno.pdf).
 
 ## Answers and Analysis
 
 The answers and detailed analysis for each screen can be found in the following locations:
 
-- **Screen 1**: [Answer to the first question](template\first_screen/README.md)
-- **Screen 2**: [Answer to the second question](template\second_screen/README.md)
-- **Screen 3**: [Answer to the third question](template\third_screen/README.md)
+- **Screen 1**: [Answer to the first question](template/first_screen/README.md)
+- **Screen 2**: [Answer to the second question](template/second_screen/README.md)
+- **Screen 3**: [Answer to the third question](template/third_screen/README.md)
 
 Please refer to these files for specific instructions and insights related to each screen.
 
