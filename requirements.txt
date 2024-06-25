@@ -1,0 +1,6 @@
+selenium
+behave
+webdriver_manager
+isort
+black
+flake8

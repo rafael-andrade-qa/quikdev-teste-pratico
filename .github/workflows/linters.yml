@@ -1,0 +1,46 @@
+name: Code linters
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - synchronize
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  static-linters:
+    runs-on: [ubuntu-latest]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.11"
+
+    - name: Install python dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Check isort
+      if: always()
+      run: |
+        isort --diff ./features
+        isort --check-only ./features
+
+    - name: Check Black formatting
+      if: always()
+      run: |
+        black --line-length 120 --diff ./features
+        black --line-length 120 --check ./features
+
+    - name: Run flake8
+      if: always()
+      run: |
+        flake8 ./features

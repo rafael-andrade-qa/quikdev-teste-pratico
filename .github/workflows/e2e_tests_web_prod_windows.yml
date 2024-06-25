@@ -1,0 +1,47 @@
+name: Functional Web Tests Local - Windows
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-e2e-tests:
+    name: E2E Web Tests Local
+    env:
+      REPORT_JSON: e2e_tests_web_local.json
+    runs-on: [windows-latest]
+
+    steps:
+    - name: Install Google Chrome
+      uses: browser-actions/setup-chrome@v1
+
+    - uses: actions/checkout@v4
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+
+    - name: Install python dependencies
+      run: pip install -r requirements.txt
+
+    - name: Run E2E Tests Web Local - Chrome
+      run: |
+        $env:BROWSER="chrome"
+        $env:HEADLESS_MODE="False"
+        $env:SERVER="local"
+        behave --tags=-xfail --format json.pretty --outfile e2e_tests_web_local.json --format pretty
+
+    - uses: actions/upload-artifact@v3
+      if: ${{ failure() }}
+      with:
+        name: failed_tests_screenshots
+        path: ./reports/screenshots/*.png
+        retention-days: 7
+
+    - name: Upload test results in JSON format
+      uses: actions/upload-artifact@v3
+      if: ${{ failure() }}
+      with:
+        name: ${{ env.REPORT_JSON }}
+        path: ./e2e_tests_web_local.json
+        retention-days: 7
